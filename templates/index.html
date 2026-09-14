@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Conversor de Bases</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Conversor de Bases</h1>
+
+        <p class="descricao">
+            Converta números entre binário, decimal, octal e hexadecimal.
+        </p>
+
+        <form method="POST">
+
+            <label for="valor">
+                Número
+            </label>
+
+            <input
+                type="text"
+                id="valor"
+                name="valor"
+                placeholder="Digite o número"
+                required
+            >
+
+            <div class="bases">
+
+                <div>
+
+                    <label for="base_origem">
+                        Base de origem
+                    </label>
+
+                    <select
+                        id="base_origem"
+                        name="base_origem"
+                    >
+
+                        <option value="2">
+                            Binário
+                        </option>
+
+                        <option value="8">
+                            Octal
+                        </option>
+
+                        <option value="10">
+                            Decimal
+                        </option>
+
+                        <option value="16">
+                            Hexadecimal
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <span class="seta">
+                    →
+                </span>
+
+                <div>
+
+                    <label for="base_destino">
+                        Converter para
+                    </label>
+
+                    <select
+                        id="base_destino"
+                        name="base_destino"
+                    >
+
+                        <option value="10">
+                            Decimal
+                        </option>
+
+                        <option value="2">
+                            Binário
+                        </option>
+
+                        <option value="8">
+                            Octal
+                        </option>
+
+                        <option value="16">
+                            Hexadecimal
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <button type="submit">
+                Converter
+            </button>
+
+        </form>
+
+
+        {% if resultado %}
+
+        <div class="resultado">
+
+            <p>Resultado</p>
+
+            <h2>
+                {{ resultado }}
+            </h2>
+
+        </div>
+
+        {% endif %}
+
+
+        {% if erro %}
+
+        <div class="erro">
+            {{ erro }}
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>
