@@ -3,7 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Conversor de Bases</title>
 
@@ -15,129 +19,858 @@
 
 <body>
 
-    <div class="container">
+<div class="container">
 
+    <div class="cabecalho">
         <h1>Conversor de Bases</h1>
 
-        <p class="descricao">
-            Converta números entre binário, decimal, octal e hexadecimal.
+        <p>
+            Converta números entre diferentes sistemas numéricos.
         </p>
+    </div>
 
-        <form method="POST">
 
-            <label for="valor">
-                Número
+    <!-- ENTRADA DO NÚMERO -->
+
+    <div class="entrada">
+
+        <label for="valor">
+            Número
+        </label>
+
+        <input
+            id="valor"
+            type="text"
+            placeholder="Digite um número..."
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <!-- SELEÇÃO DAS BASES -->
+
+    <div class="bases">
+
+        <div class="base">
+
+            <label for="base_origem">
+                Base de origem
             </label>
 
-            <input
-                type="text"
-                id="valor"
-                name="valor"
-                placeholder="Digite o número"
-                required
+            <select id="base_origem">
+
+                <option value="2">
+                    Binário
+                </option>
+
+                <option value="8">
+                    Octal
+                </option>
+
+                <option value="10">
+                    Decimal
+                </option>
+
+                <option value="16">
+                    Hexadecimal
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <button
+            id="trocar"
+            class="botao-trocar"
+            type="button"
+            title="Inverter bases"
+        >
+            ⇄
+        </button>
+
+
+        <div class="base">
+
+            <label for="base_destino">
+                Converter para
+            </label>
+
+            <select id="base_destino">
+
+                <option value="10">
+                    Decimal
+                </option>
+
+                <option value="2">
+                    Binário
+                </option>
+
+                <option value="8">
+                    Octal
+                </option>
+
+                <option value="16">
+                    Hexadecimal
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- ERRO -->
+
+    <div
+        id="erro"
+        class="erro escondido"
+    ></div>
+
+
+    <!-- RESULTADOS -->
+
+    <div
+        id="resultado-area"
+        class="resultado-area escondido"
+    >
+
+        <p class="titulo-secao">
+            Resultado
+        </p>
+
+
+        <div class="resultado-principal">
+
+            <span id="resultado">
+                -
+            </span>
+
+            <button
+                id="copiar"
+                type="button"
+                class="copiar"
             >
+                Copiar
+            </button>
 
-            <div class="bases">
+        </div>
 
-                <div>
 
-                    <label for="base_origem">
-                        Base de origem
-                    </label>
+        <!-- ADICIONAR AO HISTÓRICO -->
 
-                    <select
-                        id="base_origem"
-                        name="base_origem"
-                    >
+        <button
+            id="adicionar-historico"
+            type="button"
+            class="adicionar-historico"
+        >
+            Adicionar ao histórico
+        </button>
 
-                        <option value="2">
-                            Binário
-                        </option>
 
-                        <option value="8">
-                            Octal
-                        </option>
+        <!-- QUANTIDADE DE BITS -->
 
-                        <option value="10">
-                            Decimal
-                        </option>
+        <div class="informacao">
 
-                        <option value="16">
-                            Hexadecimal
-                        </option>
+            <span>
+                Quantidade de bits
+            </span>
 
-                    </select>
+            <strong id="bits">
+                -
+            </strong>
 
-                </div>
+        </div>
 
-                <span class="seta">
-                    →
+
+        <!-- TODAS AS REPRESENTAÇÕES -->
+
+        <div class="representacoes">
+
+            <h2>
+                Todas as representações
+            </h2>
+
+
+            <div class="linha">
+
+                <span>
+                    Binário
                 </span>
 
-                <div>
-
-                    <label for="base_destino">
-                        Converter para
-                    </label>
-
-                    <select
-                        id="base_destino"
-                        name="base_destino"
-                    >
-
-                        <option value="10">
-                            Decimal
-                        </option>
-
-                        <option value="2">
-                            Binário
-                        </option>
-
-                        <option value="8">
-                            Octal
-                        </option>
-
-                        <option value="16">
-                            Hexadecimal
-                        </option>
-
-                    </select>
-
-                </div>
+                <strong id="binario">
+                    -
+                </strong>
 
             </div>
 
-            <button type="submit">
-                Converter
-            </button>
 
-        </form>
+            <div class="linha">
+
+                <span>
+                    Octal
+                </span>
+
+                <strong id="octal">
+                    -
+                </strong>
+
+            </div>
 
 
-        {% if resultado %}
+            <div class="linha">
 
-        <div class="resultado">
+                <span>
+                    Decimal
+                </span>
 
-            <p>Resultado</p>
+                <strong id="decimal">
+                    -
+                </strong>
 
-            <h2>
-                {{ resultado }}
-            </h2>
+            </div>
+
+
+            <div class="linha">
+
+                <span>
+                    Hexadecimal
+                </span>
+
+                <strong id="hexadecimal">
+                    -
+                </strong>
+
+            </div>
 
         </div>
 
-        {% endif %}
+
+        <!-- EXPLICAÇÃO MATEMÁTICA -->
+
+        <details class="explicacao">
+
+            <summary>
+                Como essa conversão funciona?
+            </summary>
+
+            <pre id="texto-explicacao"></pre>
+
+        </details>
 
 
-        {% if erro %}
+        <!-- LIMPAR CALCULADORA -->
 
-        <div class="erro">
-            {{ erro }}
-        </div>
-
-        {% endif %}
+        <button
+            id="limpar"
+            type="button"
+            class="limpar"
+        >
+            Limpar
+        </button>
 
     </div>
+
+
+    <!-- HISTÓRICO -->
+
+    <div
+        id="historico-area"
+        class="historico-area escondido"
+    >
+
+        <div class="historico-cabecalho">
+
+            <h2>
+                Histórico
+            </h2>
+
+            <button
+                id="limpar-historico"
+                type="button"
+            >
+                Limpar histórico
+            </button>
+
+        </div>
+
+        <div id="historico-lista"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const valor =
+    document.getElementById("valor");
+
+const baseOrigem =
+    document.getElementById("base_origem");
+
+const baseDestino =
+    document.getElementById("base_destino");
+
+const resultadoArea =
+    document.getElementById("resultado-area");
+
+const erro =
+    document.getElementById("erro");
+
+const historicoArea =
+    document.getElementById("historico-area");
+
+const historicoLista =
+    document.getElementById("historico-lista");
+
+const botaoAdicionarHistorico =
+    document.getElementById("adicionar-historico");
+
+const botaoLimparHistorico =
+    document.getElementById("limpar-historico");
+
+
+/* ==============================
+   CONVERSÃO
+   ============================== */
+
+async function converter() {
+
+    const numero =
+        valor.value.trim();
+
+
+    if (numero === "") {
+
+        resultadoArea
+            .classList
+            .add("escondido");
+
+        erro
+            .classList
+            .add("escondido");
+
+        return;
+    }
+
+
+    try {
+
+        const resposta =
+            await fetch(
+                "/converter",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        valor:
+                            numero,
+
+                        base_origem:
+                            baseOrigem.value,
+
+                        base_destino:
+                            baseDestino.value
+                    })
+                }
+            );
+
+
+        const dados =
+            await resposta.json();
+
+
+        if (!dados.sucesso) {
+
+            resultadoArea
+                .classList
+                .add("escondido");
+
+            erro.textContent =
+                dados.erro;
+
+            erro
+                .classList
+                .remove("escondido");
+
+            return;
+        }
+
+
+        erro
+            .classList
+            .add("escondido");
+
+        resultadoArea
+            .classList
+            .remove("escondido");
+
+
+        document
+            .getElementById("resultado")
+            .textContent =
+                dados.resultado;
+
+
+        document
+            .getElementById("binario")
+            .textContent =
+                dados.representacoes.binario;
+
+
+        document
+            .getElementById("octal")
+            .textContent =
+                dados.representacoes.octal;
+
+
+        document
+            .getElementById("decimal")
+            .textContent =
+                dados.representacoes.decimal;
+
+
+        document
+            .getElementById("hexadecimal")
+            .textContent =
+                dados.representacoes.hexadecimal;
+
+
+        document
+            .getElementById("bits")
+            .textContent =
+                dados.bits;
+
+
+        document
+            .getElementById(
+                "texto-explicacao"
+            )
+            .textContent =
+                dados.explicacao;
+
+    }
+
+    catch (erroRequisicao) {
+
+        resultadoArea
+            .classList
+            .add("escondido");
+
+        erro.textContent =
+            "Não foi possível realizar a conversão.";
+
+        erro
+            .classList
+            .remove("escondido");
+
+    }
+
+}
+
+
+/* Conversão automática */
+
+valor.addEventListener(
+    "input",
+    converter
+);
+
+
+baseOrigem.addEventListener(
+    "change",
+    converter
+);
+
+
+baseDestino.addEventListener(
+    "change",
+    converter
+);
+
+
+/* ==============================
+   INVERTER BASES
+   ============================== */
+
+document
+    .getElementById("trocar")
+    .addEventListener(
+        "click",
+        function () {
+
+            const origem =
+                baseOrigem.value;
+
+            baseOrigem.value =
+                baseDestino.value;
+
+            baseDestino.value =
+                origem;
+
+            converter();
+
+        }
+    );
+
+
+/* ==============================
+   COPIAR RESULTADO
+   ============================== */
+
+document
+    .getElementById("copiar")
+    .addEventListener(
+        "click",
+        function () {
+
+            const resultado =
+                document
+                    .getElementById(
+                        "resultado"
+                    )
+                    .textContent;
+
+
+            navigator
+                .clipboard
+                .writeText(resultado);
+
+
+            this.textContent =
+                "Copiado!";
+
+
+            setTimeout(
+                () => {
+
+                    this.textContent =
+                        "Copiar";
+
+                },
+                1200
+            );
+
+        }
+    );
+
+
+/* ==============================
+   LIMPAR CALCULADORA
+   ============================== */
+
+document
+    .getElementById("limpar")
+    .addEventListener(
+        "click",
+        function () {
+
+            valor.value = "";
+
+            resultadoArea
+                .classList
+                .add("escondido");
+
+            erro
+                .classList
+                .add("escondido");
+
+            valor.focus();
+
+        }
+    );
+
+
+/* ==============================
+   HISTÓRICO
+   ============================== */
+
+function carregarHistorico() {
+
+    const historicoSalvo =
+        localStorage.getItem(
+            "historicoConversoes"
+        );
+
+
+    if (!historicoSalvo) {
+
+        return [];
+
+    }
+
+
+    try {
+
+        return JSON.parse(
+            historicoSalvo
+        );
+
+    }
+
+    catch {
+
+        return [];
+
+    }
+
+}
+
+
+function salvarHistorico(
+    historico
+) {
+
+    localStorage.setItem(
+
+        "historicoConversoes",
+
+        JSON.stringify(
+            historico
+        )
+
+    );
+
+}
+
+
+function atualizarHistoricoNaTela() {
+
+    const historico =
+        carregarHistorico();
+
+
+    historicoLista.innerHTML =
+        "";
+
+
+    if (historico.length === 0) {
+
+        historicoArea
+            .classList
+            .add("escondido");
+
+        return;
+
+    }
+
+
+    historicoArea
+        .classList
+        .remove("escondido");
+
+
+    historico.forEach(
+        item => {
+
+            const linha =
+                document.createElement(
+                    "div"
+                );
+
+
+            linha.classList.add(
+                "historico-item"
+            );
+
+
+            const origem =
+                document.createElement(
+                    "span"
+                );
+
+
+            origem.textContent =
+                item.origem;
+
+
+            const seta =
+                document.createElement(
+                    "span"
+                );
+
+
+            seta.textContent =
+                "→";
+
+
+            seta.classList.add(
+                "historico-seta"
+            );
+
+
+            const destino =
+                document.createElement(
+                    "strong"
+                );
+
+
+            destino.textContent =
+                item.destino;
+
+
+            linha.appendChild(
+                origem
+            );
+
+
+            linha.appendChild(
+                seta
+            );
+
+
+            linha.appendChild(
+                destino
+            );
+
+
+            historicoLista
+                .appendChild(
+                    linha
+                );
+
+        }
+    );
+
+}
+
+
+/* Adicionar conversão */
+
+botaoAdicionarHistorico
+    .addEventListener(
+        "click",
+        function () {
+
+            const numero =
+                valor.value.trim();
+
+
+            const resultadoAtual =
+                document
+                    .getElementById(
+                        "resultado"
+                    )
+                    .textContent;
+
+
+            if (
+                numero === "" ||
+                resultadoAtual === "-"
+            ) {
+
+                return;
+
+            }
+
+
+            const baseOrigemTexto =
+                baseOrigem.options[
+                    baseOrigem.selectedIndex
+                ].text;
+
+
+            const baseDestinoTexto =
+                baseDestino.options[
+                    baseDestino.selectedIndex
+                ].text;
+
+
+            const historico =
+                carregarHistorico();
+
+
+            const novaConversao = {
+
+                origem:
+                    `${numero} (${baseOrigemTexto})`,
+
+                destino:
+                    `${resultadoAtual} (${baseDestinoTexto})`
+
+            };
+
+
+            /*
+            Evita registrar duas vezes
+            consecutivas a mesma conversão.
+            */
+
+            if (
+                historico.length > 0 &&
+                historico[0].origem ===
+                    novaConversao.origem &&
+                historico[0].destino ===
+                    novaConversao.destino
+            ) {
+
+                return;
+
+            }
+
+
+            historico.unshift(
+                novaConversao
+            );
+
+
+            /*
+            Mantém somente as
+            10 conversões mais recentes.
+            */
+
+            if (
+                historico.length > 10
+            ) {
+
+                historico.pop();
+
+            }
+
+
+            salvarHistorico(
+                historico
+            );
+
+
+            atualizarHistoricoNaTela();
+
+        }
+    );
+
+
+/* Limpar histórico */
+
+botaoLimparHistorico
+    .addEventListener(
+        "click",
+        function () {
+
+            localStorage.removeItem(
+                "historicoConversoes"
+            );
+
+
+            atualizarHistoricoNaTela();
+
+        }
+    );
+
+
+/* Carrega o histórico ao abrir a página */
+
+atualizarHistoricoNaTela();
+
+</script>
 
 </body>
 
